@@ -10,8 +10,8 @@ function init() {
     };
   }
 
-  d3.csv("data/random-data.csv", rowConverter, function(data, error) {
-    if (data.length === 0) {
+  d3.csv("data/random-data.csv", rowConverter, function(data) {
+    if (data === null) {
       d3.select("#chart").append("p")
         .text("Data failed to load");
     }
