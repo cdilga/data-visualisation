@@ -11,7 +11,7 @@ function init() {
   }
 
   d3.csv("data/random-data.csv", rowConverter, function(data, error) {
-    if (error || data.length === 0) {
+    if (data.length === 0) {
       d3.select("#chart").append("p")
         .text("Data failed to load");
     }
