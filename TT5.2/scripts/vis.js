@@ -3,9 +3,8 @@ function init () {
   var w = 500;
   var h = 100;
   var data = true;
-  var data1 = [14, 5, 26, 23, 9, 90, 45, 32, 12, 4];
-  var data2 = [12, 5, 3, 16, 6, 1, 2, 6];
-  var currdata = data1;
+ 
+  var currdata = [14, 5, 26, 23, 9, 90, 45, 32, 12, 4];
 
   d3.select("#update")
     .on("click", function() {
