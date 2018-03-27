@@ -6,7 +6,7 @@ function init () {
   var data1 = [14, 5, 26, 23, 9, 90, 45, 32, 12, 4];
   var data2 = [12, 5, 3, 16, 6, 1, 2, 6];
   var currdata = data1;
-  
+
   d3.select("#update")
     .on("click", function() {
       data = !data;
