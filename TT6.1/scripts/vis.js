@@ -10,63 +10,6 @@ function init () {
   var dataset = data1;
 
   var maxValue = 25;
-  d3.select("#add")
-    .on("click", function() {
-      var newNumber = Math.floor(Math.random()* maxValue);
-      dataset.push(newNumber);
-
-
-      var bars = svg.selectAll("rect").data(dataset);
-      xScale.domain(d3.range(dataset.length));
-
-      bars.enter()
-        .append("rect")
-        .attr("x", w)
-        .attr("y", function(d) {
-          return h - yScale(d);
-        })
-        .merge(bars)
-        .transition()
-        .delay(500)
-        .attr("x", function(d, i) {
-          return xScale(i);
-        })
-        .attr("y", function(d) {
-          return h - yScale(d);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function(d) {
-          return yScale(d);
-        })
-
-        .attr("fill", "red");
-
-   });
-
-  d3.select("#remove")
-    .on("click", function() {
-      dataset.shift();
-      var bars = svg.selectAll("rect").data(dataset);
-      xScale.domain(d3.range(dataset.length));
-      bars.exit()
-        .transition()
-        .duration(500)
-        .attr("x", w)
-        .remove()
-
-      bars.transition()
-        .delay(500)
-        .attr("x", function(d, i) {
-          return xScale(i);
-        })
-        .attr("y", function(d) {
-          return h - yScale(d);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function(d) {
-          return yScale(d);
-        })
-    });
 
     var yScale = d3.scaleLinear()
       .domain([0, d3.max(dataset)])
@@ -99,6 +42,90 @@ function init () {
         return yScale(d);
       })
       .attr("fill", "red");
+
+    var registerMouseovers = function() {
+      svg.selectAll("rect")
+      .on("mouseover", function(d) {
+
+        d3.select(this)
+          .attr("fill", "rgb(237, 172, 0)");
+
+        svg.append("text")
+          .text(d)
+          .attr("id", "tooltip")
+          .attr("x", parseFloat(d3.select(this).attr("x")) + parseFloat(d3.select(this).attr("width"))/2 - 10)
+          .attr("y", parseFloat(d3.select(this).attr("y")) + 20)
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .attr("fill", "red")
+
+        d3.select("#tooltip")
+          .remove()
+      })
+    }
+    registerMouseovers();
+
+    d3.select("#add")
+      .on("click", function() {
+        var newNumber = Math.floor(Math.random()* maxValue);
+        dataset.push(newNumber);
+
+
+        var bars = svg.selectAll("rect").data(dataset);
+        xScale.domain(d3.range(dataset.length));
+
+        bars.enter()
+          .append("rect")
+          .attr("x", w)
+          .attr("y", function(d) {
+            return h - yScale(d);
+          })
+          .merge(bars)
+          .transition()
+          .delay(500)
+          .attr("x", function(d, i) {
+            return xScale(i);
+          })
+          .attr("y", function(d) {
+            return h - yScale(d);
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function(d) {
+            return yScale(d);
+          })
+
+          .attr("fill", "red");
+
+        registerMouseovers();
+
+     });
+
+    d3.select("#remove")
+      .on("click", function() {
+        dataset.shift();
+        var bars = svg.selectAll("rect").data(dataset);
+        xScale.domain(d3.range(dataset.length));
+        bars.exit()
+          .transition()
+          .duration(500)
+          .attr("x", w)
+          .remove()
+
+        bars.transition()
+          .delay(500)
+          .attr("x", function(d, i) {
+            return xScale(i);
+          })
+          .attr("y", function(d) {
+            return h - yScale(d);
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function(d) {
+            return yScale(d);
+          })
+      });
+
 }
 
 window.onload = init;
