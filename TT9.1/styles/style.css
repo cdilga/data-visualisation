@@ -1,0 +1,26 @@
+svg > rect {
+  fill: rgb(8, 151, 166);
+}
+
+.line {
+  fill: none;
+  stroke: slategrey;
+  stroke-width: 0.5;
+}
+
+.area {
+  fill: slategrey;
+  stroke: none;
+  stroke-width: 0.5;
+}
+
+.halfMillion {
+  fill: none;
+  stroke: red;
+  stroke-width: 0.5;
+}
+
+.halfMillionLabel {
+  fill: red;
+  stroke-width: 0.5;
+}
